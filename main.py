@@ -15,7 +15,7 @@ import numpy as np
 from deap import base, creator, tools
 
 # Local Imports
-import utility
+import src.utility as utility
 
 # Debug Var
 DEBUG = False
@@ -162,12 +162,12 @@ def run(distance, n_cities):
 
 def main():
 
-    if not os.path.isfile("tsp.dat"):
-        utility.log("tsp.dat was not found")
+    if not os.path.isfile("src/tsp.dat"):
+        utility.log("src/tsp.dat was not found")
         return
     
     # Load Data
-    cities, coords = load_data("tsp.dat")
+    cities, coords = load_data("src/tsp.dat")
     n_cities = len(cities)
 
     # Test load_data
@@ -192,14 +192,17 @@ def main():
         utility.log(f"\n\t\t  {order:>2}. {cities[idx]}")
     utility.log(f"\n\tBest Distance = {best_distance:,.4f} miles")
 
+    # Ensure results directory exists
+    os.makedirs("results", exist_ok=True)
+
     # Plot Fitness over Generations
-    utility.plot_fitness(best_per_gen)
+    utility.plot_fitness(best_per_gen, output_path="results/fitness_over_generations.png")
 
     # Plot Best Tour
-    utility.plot_tour(best_tour, coords)
+    utility.plot_tour(best_tour, coords, output_path="results/best_tour.png")
     
     # Save Results to CSV
-    utility.save_tour_csv(best_tour, cities, best_distance)
+    utility.save_tour_csv(best_tour, cities, best_distance, output_path="results/best_tour.csv")
 
     return
 

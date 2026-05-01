@@ -16,9 +16,8 @@ def log(message):
     log_file.flush()
 
 # Save final results to csv
-def save_tour_csv(tour, cities, distance, filename = "best_tour.csv"):
-    path = os.path.join(filename)
-    with open(path, "w", newline="") as fh:
+def save_tour_csv(tour, cities, distance, output_path="results/best_tour.csv"):
+    with open(output_path, "w", newline="") as fh:
         writer = csv.writer(fh)
         writer.writerow(["Order", "City"])
         for order, idx in enumerate(tour, start=1):
@@ -26,10 +25,8 @@ def save_tour_csv(tour, cities, distance, filename = "best_tour.csv"):
         writer.writerow([])
         writer.writerow(["Total Distance (miles)", f"{distance:.4f}"])
 
-# PLot Fitness over Generations
-def plot_fitness(best_per_gen, filename="fitness_over_generations.png"):
-    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), filename)
-
+# Plot Fitness over Generations
+def plot_fitness(best_per_gen, output_path="results/fitness_over_generations.png"):
     fig, ax = plt.subplots(figsize=(9, 5))
     ax.plot(best_per_gen, linewidth=2)
     ax.set_xlabel("Generation")
@@ -37,13 +34,11 @@ def plot_fitness(best_per_gen, filename="fitness_over_generations.png"):
     ax.set_title("Best Tour Distance Per Generation")
     ax.grid(True, alpha=0.3)
     fig.tight_layout()
-    fig.savefig(path, dpi=150)
+    fig.savefig(output_path, dpi=150)
     plt.close(fig)
 
-#plot Best Tour Path
-def plot_tour(tour, coords, filename="best_tour.png"):
-    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), filename)
-
+# Plot Best Tour Path
+def plot_tour(tour, coords, output_path="results/best_tour.png"):
     # Build ordered lat/lon lists
     lons = []
     lats = []
@@ -63,7 +58,7 @@ def plot_tour(tour, coords, filename="best_tour.png"):
     ax.set_title("Best TSP Tour")
     ax.grid(True, alpha=0.3)
     fig.tight_layout()
-    fig.savefig(path, dpi=150)
+    fig.savefig(output_path, dpi=150)
     plt.close(fig)
 
     return
