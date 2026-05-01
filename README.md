@@ -117,7 +117,7 @@ project-root/
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/yourusername/UCF-EvolutionaryComputation-TSP.git
+git clone https://github.com/yourusername/UCF-EvolutionaryComputation-TravelingSalesmenProblem.git
 cd UCF-EvolutionaryComputation-TSP
 
 # 2. Install dependencies
